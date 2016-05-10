@@ -22,7 +22,7 @@ function create_message($senderid, $receiverid, $msg_content) {
 function getMessagesBySenderAndReceiver($senderid, $receiverid) {
     $messages = ORM::for_table('messages')->where_in('sender_fbid', array($senderid, $receiverid))
                                         ->where_in('receiver_fbid', array($senderid, $receiverid))
-                                        ->order_by_desc('id')->find_many();
+                                        ->order_by_asc('id')->find_many();
     return $messages;
 }
 
