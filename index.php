@@ -11,7 +11,6 @@ if (isset($_GET['action'])) {
 			$user = ORM::for_table('user')->where('facebookid', $_GET['facebookid'])->find_one();
 			if ($user == null) {
 				$user = create_user($_GET['facebookid'], $_GET['name']);
-				//echo create_json_from_object($user);
 			}
 		}
 	} else if (strcmp($_GET['action'], "getmessages") == 0) {
