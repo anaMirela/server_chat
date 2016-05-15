@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `content` text NOT NULL,
   `sender_fbid` text NOT NULL,
   `receiver_fbid` text NOT NULL,
+  `timestamp` text NOT NULL,
   FOREIGN KEY (sender_fbid) REFERENCES user(facebookid),
   FOREIGN KEY (receiver_fbid) REFERENCES user(facebookid)
 ) ;"

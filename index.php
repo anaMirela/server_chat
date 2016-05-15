@@ -24,8 +24,18 @@ if (isset($_GET['action'])) {
 		}
 
 	} else if (strcmp($_GET['action'], "sendmsg") == 0) {
-		if (isset($_POST['msg_content']) && isset($_POST['senderid']) && isset($_POST['receiverid'])) {
-			create_message($_POST['senderid'], $_POST['receiverid'], $_POST['msg_content']);
+		if (isset($_POST['msg_content']) && isset($_POST['senderid']) && isset($_POST['receiverid']) && isset($_POST['timestamp'])) {
+			create_message($_POST['senderid'], $_POST['receiverid'], $_POST['msg_content'], $_POST['timestamp']);
+		}
+	} else if (strcmp($_GET['action'], "getlastmsg") == 0) {
+		if (isset($_GET['senderid']) && isset($_GET['receiverid']) && isset($_GET['timestamp']) && isset($_GET['lastId'])) {
+			//echo $_GET['senderid'].' '.$_GET['receiverid'].' '.$_GET['timestamp'].' '.$_GET['lastId'];
+			$messages = getLastMessages($_GET['senderid'], $_GET['receiverid'], $_GET['timestamp'], $_GET['lastId']);
+			$messages_arr = array();
+			foreach ($messages as $m) {
+				array_push($messages_arr, create_json_from_object($m));
+			}
+			echo json_encode($messages_arr);
 		}
 	}
 }
