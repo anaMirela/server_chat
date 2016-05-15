@@ -31,7 +31,9 @@ function getLastMessages($senderid, $receiverid, $timestamp, $lastId) {
    // $messages = ORM::for_table('messages')->raw_query('SELECT m.* FROM messages m WHERE strftime("%s", :timestamp) - strftime("%s", `timestamp`)>0', array('timestamp' => $timestamp))->find_many();
 
    // $messages = ORM::for_table('messages')->raw_query('SELECT m.* FROM messages m WHERE id>:lastId', array('lastId' => $lastId))->find_many();
-    $messages = ORM::for_table('messages')->where_gt('id', $lastId)->find_many();
+    $messages = ORM::for_table('messages')->where_in('sender_fbid', array($senderid, $receiverid))
+                                        ->where_in('receiver_fbid', array($senderid, $receiverid))
+                                        ->where_gt('id', $lastId)->find_many();
     return $messages;
 }
 
